@@ -1,7 +1,7 @@
 package com.ibs.testwork.data;
 
 /**
- * Заявка
+ *
  * @author girko
  *
  */

@@ -8,14 +8,14 @@ import com.ibs.testwork.data.StatusCatalog;
 
 public interface TestWorkService {
 
-	public List<Bid> getBidAll();
-	public Bid getBid(Long id);
-	public Bid deleteBid(Long id);
-	public Bid updateBid(Bid newBid);
-	public List<Bid> deleteAll();
-	public Bid create(Bid bid);
-	public List<SendAndReceivCatalog> getAllUsers();
-	public SendAndReceivCatalog getUser(Long id);
-	public List<StatusCatalog> getAllStatus();
-	public StatusCatalog getStatus(Long id);
+	List<Bid> getBidAll();
+	Bid getBid(Long id);
+	Bid deleteBid(Long id);
+	Bid updateBid(Bid newBid);
+	List<Bid> deleteAll();
+	Bid create(Bid bid);
+	List<SendAndReceivCatalog> getAllUsers();
+	SendAndReceivCatalog getUser(Long id);
+	List<StatusCatalog> getAllStatus();
+	StatusCatalog getStatus(Long id);
 }

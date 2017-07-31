@@ -74,7 +74,7 @@ Ext.onReady(function() {
 	        var record = combo.findRecord(combo.valueField, value);
 	        return record ? record.get(combo.displayField) : combo.valueNotFoundText;
 	    }
-	}   
+	};
 	
 	var pfr_edit = new Ext.form.ComboBox({
   	  typeAhead: true,
@@ -93,10 +93,7 @@ Ext.onReady(function() {
   	  valueField: 'id',   
   	  lazyRender: false
   	}); 
-	
-	
-	
-	var rowEditing = Ext.create('Ext.grid.plugin.RowEditing');
+
     
 	var grid = Ext.create('Ext.grid.Panel', {
         renderTo: document.body,
@@ -114,35 +111,40 @@ Ext.onReady(function() {
             text: '№',
             width: 50,
             sortable: true,
-            dataIndex: 'item'
+            dataIndex: 'item',
+            flex: 1
         }, {
             text: 'Название',
             sortable: true,
             dataIndex: 'name',
             field: {
                 xtype: 'textfield'
-            }
+            },
+            flex: 1
         }, {
             text: 'Отправитель',
             sortable: true,
             width: 160,
             dataIndex: 'idSender',
             renderer: Ext.util.Format.comboRenderer(user_edit), 
-            editor: user_edit
+            editor: user_edit,
+            flex: 1
         }, {
             header: 'Получатель',
             width: 160,
             sortable: true,
             dataIndex: 'idReceiver',
             renderer: Ext.util.Format.comboRenderer(user_edit), 
-            editor: user_edit
+            editor: user_edit,
+            flex: 1
         }, {
             text: 'Статус',
             width: 80,
             sortable: true,
             dataIndex: 'idStatus',
             renderer: Ext.util.Format.comboRenderer(pfr_edit), 
-            editor: pfr_edit
+            editor: pfr_edit,
+            flex: 1
         }],
         dockedItems: [{
             xtype: 'toolbar',
@@ -231,13 +233,7 @@ Ext.onReady(function() {
                          buttons: [{
                              text: 'Сохранить',
                              handler: function () {
-                               
-                               var formName = Ext.get('name').getValue();
-                               var formIdSender = Ext.get('idSender').getValue();
-                               var formIdReceiver = Ext.get('idReceiver').getValue();
-                               var formIdStatus = Ext.get('idStatus').getValue();
-                               var formDescBid = Ext.get('descBid').getValue();
-      
+
                                if (form.getForm().isValid()) {
                                  form.getForm().submit({
                                  method: 'POST',
@@ -274,8 +270,6 @@ Ext.onReady(function() {
                      });
                      window.show();
 
-                    //store.insert(0, new Bid());
-                    //rowEditing.startEdit(0, 0);
                     }
                 
             }, '-', {

@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="resources/css/ext-all.css" />
-  	<script src="resources/js/ext-all-debug.js"></script>
-  	<script src="resources/js/BidApp/app/Application.js"></script>
+	<meta charset="UTF-8">
+	<title>Учет заявок</title>
+
+	<link rel="stylesheet" href="resources/old/css/ext-all.css" />
+	<script src="resources/old/js/ext-all-debug.js"></script>
+	<script src="resources/old/js/app.js"></script>
 </head>
 <body>
-
+<h1>Учет заявок</h1>
+<br>
+<div id="mygrid"></div>
 </body>
 </html>

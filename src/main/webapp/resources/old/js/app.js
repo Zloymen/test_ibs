@@ -2,7 +2,7 @@ Ext.require(['Ext.data.*', 'Ext.grid.*']);
 
 Ext.define('Bid', {
     extend: 'Ext.data.Model',
-    idProperty:'item',
+    idProperty: 'item',
     fields: ['item',
         'name',
         'descBid',
@@ -18,12 +18,12 @@ Ext.define('Spr', {
 });
 
 
-Ext.onReady(function() {
-	var store = Ext.create('Ext.data.Store', {
+Ext.onReady(function () {
+    var store = Ext.create('Ext.data.Store', {
         autoLoad: true,
         autoSync: true,
         model: 'Bid',
-        
+
         proxy: {
             type: 'rest',
             url: 'bids',
@@ -33,10 +33,10 @@ Ext.onReady(function() {
             }
         }
     });
-	
-	store.load();
-	
-	var storeStatis = Ext.create('Ext.data.Store', {
+
+    store.load();
+
+    var storeStatis = Ext.create('Ext.data.Store', {
         autoLoad: true,
         autoSync: true,
         model: 'Spr',
@@ -49,10 +49,10 @@ Ext.onReady(function() {
             }
         }
     });
-	
-	storeStatis.load();
-	
-	var storeUsers = Ext.create('Ext.data.Store', {
+
+    storeStatis.load();
+
+    var storeUsers = Ext.create('Ext.data.Store', {
         autoLoad: true,
         autoSync: true,
         model: 'Spr',
@@ -62,43 +62,43 @@ Ext.onReady(function() {
             reader: {
                 type: 'json',
                 root: 'sendAndReceivCatalogs'
-            }        
+            }
         }
     });
-	
-	storeUsers.load();
-	
-		
-	Ext.util.Format.comboRenderer = function(combo){
-	    return function(value){
-	        var record = combo.findRecord(combo.valueField, value);
-	        return record ? record.get(combo.displayField) : combo.valueNotFoundText;
-	    }
-	};
-	
-	var pfr_edit = new Ext.form.ComboBox({
-  	  typeAhead: true,
-  	  triggerAction: 'all',  
-  	  store: storeStatis,
-  	  displayField:'description', 
-  	  valueField: 'id',   
-  	  lazyRender: false
-  	}); 
-	
-	var user_edit = new Ext.form.ComboBox({
-  	  typeAhead: true,
-  	  triggerAction: 'all',  
-  	  store: storeUsers,
-  	  displayField:'description', 
-  	  valueField: 'id',   
-  	  lazyRender: false
-  	}); 
 
-    
-	var grid = Ext.create('Ext.grid.Panel', {
+    storeUsers.load();
+
+
+    Ext.util.Format.comboRenderer = function (combo) {
+        return function (value) {
+            var record = combo.findRecord(combo.valueField, value);
+            return record ? record.get(combo.displayField) : combo.valueNotFoundText;
+        }
+    };
+
+    var pfr_edit = new Ext.form.ComboBox({
+        typeAhead: true,
+        triggerAction: 'all',
+        store: storeStatis,
+        displayField: 'description',
+        valueField: 'id',
+        lazyRender: false
+    });
+
+    var user_edit = new Ext.form.ComboBox({
+        typeAhead: true,
+        triggerAction: 'all',
+        store: storeUsers,
+        displayField: 'description',
+        valueField: 'id',
+        lazyRender: false
+    });
+
+
+    var grid = Ext.create('Ext.grid.Panel', {
         renderTo: document.body,
         plugins: [{
-            ptype:'cellediting',
+            ptype: 'cellediting',
             clicksToEdit: 1
         }],
         width: 800,
@@ -126,7 +126,7 @@ Ext.onReady(function() {
             sortable: true,
             width: 160,
             dataIndex: 'idSender',
-            renderer: Ext.util.Format.comboRenderer(user_edit), 
+            renderer: Ext.util.Format.comboRenderer(user_edit),
             editor: user_edit,
             flex: 1
         }, {
@@ -134,7 +134,7 @@ Ext.onReady(function() {
             width: 160,
             sortable: true,
             dataIndex: 'idReceiver',
-            renderer: Ext.util.Format.comboRenderer(user_edit), 
+            renderer: Ext.util.Format.comboRenderer(user_edit),
             editor: user_edit,
             flex: 1
         }, {
@@ -142,7 +142,7 @@ Ext.onReady(function() {
             width: 80,
             sortable: true,
             dataIndex: 'idStatus',
-            renderer: Ext.util.Format.comboRenderer(pfr_edit), 
+            renderer: Ext.util.Format.comboRenderer(pfr_edit),
             editor: pfr_edit,
             flex: 1
         }],
@@ -151,144 +151,146 @@ Ext.onReady(function() {
             items: [{
                 text: 'Добавить',
                 icon: 'resources/old/images/add.png',
-                handler: function(){
-                	 var form = new Ext.form.FormPanel({
-                         baseCls: 'x-plain',
-                         labelWidth: 75,
-                         name: 'addForm',
-                         url: 'bid/addBid',
-                         defaultType: 'textfield',
-      
-                         items: [{
-                             fieldLabel: 'Название заявки',
-                             id: 'name',
-                             name: 'name',
-                             allowBlank:false,
-                             anchor: '100%',
-                             listeners: {
-                                 afterrender: function(field) {
-                                 field.focus(false, 200);
-                               }
-                             }                        	
-                         },
-                         {
-                         	fieldLabel: 'Отправитель',
-                         	xtype: 'combobox',
-                         	id: 'idSender',
-                            name: 'idSender',
-                            allowBlank:false,
-                            anchor: '100%',
-                            store: storeUsers,
-                       	  	displayField:'description', 
-                       	  	valueField: 'id', 
-                       	  	queryMode:'remote'
-      
-                         }, {
-                           fieldLabel: 'Получатель',
-                           xtype: 'combobox',
-                           id: 'idReceiver',
-                           name: 'idReceiver',
-                           anchor: '100%',
-                           allowBlank:false,
-                           store: storeUsers,
-                           displayField:'description', 
-                           valueField: 'id', 
-                           queryMode:'remote'      
-                         },{
-                         	fieldLabel: 'Статус',
-                         	xtype: 'combobox',
-                            id: 'idStatus',
-                            name: 'idStatus',
-                            anchor: '100%',
-                            allowBlank:false,
-                            store: storeStatis,
-                            displayField:'description', 
-                            valueField: 'id', 
-                            queryMode:'remote' 
-                         }, 
-                         {
-                             xtype     : 'textareafield',
-                             grow      : false,                             
-                             id      : 'descBid',
-                             name      : 'descBid',
-                             fieldLabel: 'Описание',
-                             anchor    : '100%'
-                         }]
-                     });
-                    
-     
-                   var window = new Ext.Window({
-                         title: 'Сохранить заявку',
-                         width: 350,
-                         height:220,
-                         minWidth: 350,
-                         minHeight: 220,
-                         layout: 'fit',
-                         plain:true,
-                         bodyStyle:'padding:5px;',
-                         buttonAlign:'center',
-                         resizable: false,
-                         items: form,
-      
-                         buttons: [{
-                             text: 'Сохранить',
-                             handler: function () {
+                handler: function () {
+                    var form = new Ext.form.FormPanel({
+                        baseCls: 'x-plain',
+                        labelWidth: 75,
+                        name: 'addForm',
+                        url: 'bid/addBid',
+                        defaultType: 'textfield',
 
-                               if (form.getForm().isValid()) {
-                                 form.getForm().submit({
-                                 method: 'POST',
-                                 url: 'bid/addBid',
-      
-                                 success: function(a, response) {
-                                 	grid.getStore().insert(response.result.bid.item,
-     		                              new Bid({
-     		                                item: response.result.bid.item,
-     		                                name: response.result.bid.name,
-     		                                idSender: response.result.bid.idSender,
-     		                                idReceiver: response.result.bid.idReceiver,
-     		                                idStatus: response.result.bid.idStatus,
-     		                                descBid: response.result.bid.descBid
-     		                              })
-     		                             );
-                                  window.close();
-                                 },
-      
-                               failure: function(a, response) {
-                                 Ext.Msg.alert("Проблема", response.result.message);
-                               }
-                             });
-                           }
-                         }
-                       },{
-                         text: 'Отмена',
-                         handler: function () {
-                           if (window) {
-                             window.close();
-                           }
-                         }
-                       }]
-                     });
-                     window.show();
+                        items: [{
+                            fieldLabel: 'Название заявки',
+                            id: 'name',
+                            name: 'name',
+                            allowBlank: false,
+                            anchor: '100%',
+                            listeners: {
+                                afterrender: function (field) {
+                                    field.focus(false, 200);
+                                }
+                            }
+                        },
+                            {
+                                fieldLabel: 'Отправитель',
+                                xtype: 'combobox',
+                                id: 'idSender',
+                                name: 'idSender',
+                                allowBlank: false,
+                                anchor: '100%',
+                                store: storeUsers,
+                                displayField: 'description',
+                                valueField: 'id',
+                                queryMode: 'remote'
 
-                    }
-                
+                            }, {
+                                fieldLabel: 'Получатель',
+                                xtype: 'combobox',
+                                id: 'idReceiver',
+                                name: 'idReceiver',
+                                anchor: '100%',
+                                allowBlank: false,
+                                store: storeUsers,
+                                displayField: 'description',
+                                valueField: 'id',
+                                queryMode: 'remote'
+                            }, {
+                                fieldLabel: 'Статус',
+                                xtype: 'combobox',
+                                id: 'idStatus',
+                                name: 'idStatus',
+                                anchor: '100%',
+                                allowBlank: false,
+                                store: storeStatis,
+                                displayField: 'description',
+                                valueField: 'id',
+                                queryMode: 'remote'
+                            },
+                            {
+                                xtype: 'textareafield',
+                                grow: false,
+                                id: 'descBid',
+                                name: 'descBid',
+                                fieldLabel: 'Описание',
+                                anchor: '100%'
+                            }]
+                    });
+
+
+                    var window = new Ext.Window({
+                        title: 'Сохранить заявку',
+                        width: 350,
+                        height: 220,
+                        minWidth: 350,
+                        minHeight: 220,
+                        layout: 'fit',
+                        plain: true,
+                        bodyStyle: 'padding:5px;',
+                        buttonAlign: 'center',
+                        resizable: false,
+                        items: form,
+
+                        buttons: [{
+                            text: 'Сохранить',
+                            handler: function () {
+
+                                if (form.getForm().isValid()) {
+                                    form.getForm().submit({
+                                        method: 'POST',
+                                        url: 'bid/addBid',
+
+                                        success: function (a, response) {
+                                            grid.getStore().insert(response.result.bid.item,
+                                                new Bid({
+                                                    item: response.result.bid.item,
+                                                    name: response.result.bid.name,
+                                                    idSender: response.result.bid.idSender,
+                                                    idReceiver: response.result.bid.idReceiver,
+                                                    idStatus: response.result.bid.idStatus,
+                                                    descBid: response.result.bid.descBid
+                                                })
+                                            );
+                                            window.close();
+                                        },
+
+                                        failure: function (a, response) {
+                                            Ext.Msg.alert("Проблема", response.result.message);
+                                        }
+                                    });
+                                }
+                            }
+                        }, {
+                            text: 'Отмена',
+                            handler: function () {
+                                if (window) {
+                                    window.close();
+                                }
+                            }
+                        }]
+                    });
+                    window.show();
+
+                }
+
             }, '-', {
                 text: 'Удалить',
                 icon: 'resources/old/images/remove.png',
-                handler: function(){
+                handler: function () {
                     var selection = grid.getView().getSelectionModel().getSelection()[0];
                     if (selection) {
                         store.remove(selection);
                     }
                 }
-            },'-',{ text: 'Обновить',
+            }, '-', {
+                text: 'Обновить',
                 icon: 'resources/old/images/update.png',
-                handler: function(){
+                handler: function () {
                     store.load();
-                }}]
+                }
+            }]
         }]
     });
 
-      
-    });
+
+});
 

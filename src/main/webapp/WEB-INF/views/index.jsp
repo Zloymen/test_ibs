@@ -1,17 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Учет заявок</title>
 
-	<link rel="stylesheet" href="resources/old/css/ext-all.css" />
-	<script src="resources/old/js/ext-all-debug.js"></script>
-	<script src="resources/old/js/app.js"></script>
+<!DOCTYPE HTML>
+<html manifest="">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<title>TicketsApp</title>
+
+	<script type="text/javascript">
+        var Ext = Ext || {}; // Ext namespace won't be defined yet...
+
+        // This function is called by the Microloader after it has performed basic
+        // device detection. The results are provided in the "tags" object. You can
+        // use these tags here or even add custom tags. These can be used by platform
+        // filters in your manifest or by platformConfig expressions in your app.
+        //
+        Ext.beforeLoad = function (tags) {
+            var s = location.search,  // the query string (ex "?foo=1&bar")
+                profile;
+
+            // For testing look for "?classic" or "?modern" in the URL to override
+            // device detection default.
+            //
+            if (s.match(/\bclassic\b/)) {
+                profile = 'classic';
+            }
+            else if (s.match(/\bmodern\b/)) {
+                profile = 'modern';
+            }
+            else {
+                profile = tags.desktop ? 'classic' : 'modern';
+                //profile = tags.phone ? 'modern' : 'classic';
+            }
+
+            Ext.manifest = profile; // this name must match a build profile name
+
+            // This function is called once the manifest is available but before
+            // any data is pulled from it.
+            //
+            //return function (manifest) {
+            // peek at / modify the manifest object
+            //};
+        };
+	</script>
+
+	<!-- The line below must be kept intact for Sencha Cmd to build your application -->
+	<script id="microloader" data-app="9b6436d6-500e-465b-88fa-51012f610d94" type="text/javascript" src="bootstrap.js"></script>
+
 </head>
-	<body>
-		<h1>Учет заявок</h1>
-		<br>
-		<div id="mygrid"></div>
-	</body>
+<body></body>
 </html>

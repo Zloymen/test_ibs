@@ -1,28 +1,18 @@
 package com.ibs.testwork;
 
-import java.util.List;
-
+import com.ibs.testwork.data.Bid;
+import com.ibs.testwork.data.SendAndReceivCatalog;
+import com.ibs.testwork.data.StatusCatalog;
+import com.ibs.testwork.resp.*;
+import com.ibs.testwork.service.TestWorkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.ibs.testwork.data.Bid;
-import com.ibs.testwork.data.SendAndReceivCatalog;
-import com.ibs.testwork.data.StatusCatalog;
-import com.ibs.testwork.resp.ManyBidResp;
-import com.ibs.testwork.resp.ManySendAndRecievResp;
-import com.ibs.testwork.resp.ManyStatusResp;
-import com.ibs.testwork.resp.SingleBidResp;
-import com.ibs.testwork.resp.restResponse;
-import com.ibs.testwork.service.TestWorkService;
+import java.util.List;
 
 
 @Controller
@@ -36,13 +26,13 @@ public class MainController {
     @RequestMapping(value = "/old", method = RequestMethod.GET)
     public String home(Model model) {
         LOGGER.debug("Open old!");
-        return "index";
+        return "main";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
         LOGGER.debug("Open main!");
-        return "main";
+        return "index";
     }
 
     @RequestMapping(value = "/bids", method = RequestMethod.GET)

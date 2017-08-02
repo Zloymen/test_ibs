@@ -9,12 +9,14 @@ Ext.define('TicketsApp.store.StatusStore', {
 
     autoSync: true,
     model: 'TicketsApp.model.Spr',
+    autoLoad: true,
     proxy: {
         type: 'rest',
-        url: 'users',
+        url: 'status',
         reader: {
             type: 'json',
-            root: 'sendAndReceivCatalogs'
+            root: 'statusCatalogs'
         }
     }
+
 });

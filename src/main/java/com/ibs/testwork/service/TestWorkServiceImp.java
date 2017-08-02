@@ -1,16 +1,14 @@
 package com.ibs.testwork.service;
 
-import java.util.*;
-
-import javax.annotation.PostConstruct;
-
+import com.ibs.testwork.data.Bid;
+import com.ibs.testwork.data.SendAndReceivCatalog;
+import com.ibs.testwork.data.StatusCatalog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ibs.testwork.data.Bid;
-import com.ibs.testwork.data.SendAndReceivCatalog;
-import com.ibs.testwork.data.StatusCatalog;
+import javax.annotation.PostConstruct;
+import java.util.*;
 
 @Service("MainService")
 public class TestWorkServiceImp implements TestWorkService {
@@ -21,15 +19,15 @@ public class TestWorkServiceImp implements TestWorkService {
     /**
      * хранилище заявок
      */
-    private Map<Long, Bid> mapBid = new HashMap<>();
+    private static Map<Long, Bid> mapBid = new HashMap<>();
     /**
      * хранилище пользователей
      */
-    private Map<Long, SendAndReceivCatalog> mapUserCatalog = new HashMap<>();
+    private static Map<Long, SendAndReceivCatalog> mapUserCatalog = new HashMap<>();
     /**
      * хранилище статусов
      */
-    private Map<Long, StatusCatalog> mapStatusCatalog = new HashMap<>();
+    private static Map<Long, StatusCatalog> mapStatusCatalog = new HashMap<>();
 
     public List<Bid> getBidAll() {
         LOGGER.info("getBidAll");
@@ -91,7 +89,7 @@ public class TestWorkServiceImp implements TestWorkService {
 
     @PostConstruct
     void init() {
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <= new Random().nextInt(200); i++) {
             long l = (long)i;
             mapBid.put(l, new Bid(l, "Заявка #" + i, (long) (1 + new Random().nextInt(11)), (long) (1 + new Random().nextInt(11)), (long) (1 + new Random().nextInt(4)), "Test" + i));
         }

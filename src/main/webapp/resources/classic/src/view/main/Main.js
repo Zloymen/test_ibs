@@ -16,7 +16,8 @@ Ext.define('TicketsApp.view.main.Main', {
         'TicketsApp.view.main.MainController',
         'TicketsApp.view.main.MainModel',
         'TicketsApp.view.main.List',
-        'TicketsApp.view.main.BidGrid'
+        'TicketsApp.view.main.BidGrid',
+        'TicketsApp.view.main.CatalogGrid'
     ],
 
     controller: 'main',
@@ -79,22 +80,30 @@ Ext.define('TicketsApp.view.main.Main', {
     items: [{
         title: 'Заявки',
         iconCls: 'fa-home',
-        // The following grid shares a store with the classic version's grid as well!
-        items: [{
-            xtype: 'mainlist'
-        }]
-    }, {
-        title: 'Пользователи',
-        iconCls: 'fa-user',
+        layout: 'fit',
         items: [{
             xtype: 'bidGrid'
         }]
     }, {
+        title: 'Пользователи',
+        iconCls: 'fa-user',
+        layout: 'fit',
+        items: [{
+            title: 'Пользователи',
+            xtype: 'CatalogGrid',
+            store:{type: 'UserStore'}
+        }]
+
+
+    }, {
         title: 'Статусы',
         iconCls: 'fa-users',
-        bind: {
-            html: '{loremIpsum}'
-        }
+        layout: 'fit',
+        items: [{
+            title: 'Статусы',
+            xtype: 'CatalogGrid',
+            store: {type: 'StatusStore'}
+        }]
     }, {
         title: 'О программе',
         iconCls: 'fa-cog',

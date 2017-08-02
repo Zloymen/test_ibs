@@ -8,6 +8,7 @@ Ext.define('TicketsApp.view.main.MainModel', {
 
     data: {
         name: 'Учет заявок',
+        nameStatus: 'Статусы',
 
         about: 'Учет заявок альфа.0000000000001<br/> Умом Sencha cmd не понять.'
     }

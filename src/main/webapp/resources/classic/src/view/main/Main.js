@@ -17,7 +17,8 @@ Ext.define('TicketsApp.view.main.Main', {
         'TicketsApp.view.main.MainModel',
         'TicketsApp.view.main.List',
         'TicketsApp.view.main.BidGrid',
-        'TicketsApp.view.main.CatalogGrid'
+        'TicketsApp.view.main.CatalogGrid',
+        'TicketsApp.view.component.PanelBid'
     ],
 
     controller: 'main',
@@ -82,7 +83,7 @@ Ext.define('TicketsApp.view.main.Main', {
         iconCls: 'fa-home',
         layout: 'fit',
         items: [{
-            xtype: 'bidGrid'
+            xtype: 'panelBid'
         }]
     }, {
         title: 'Пользователи',

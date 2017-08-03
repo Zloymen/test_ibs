@@ -5,14 +5,14 @@ package com.ibs.testwork.data;
  * @author girko
  *
  */
-public class Сatalog {
+public class Catalog {
 	private Long id;
 	private String description;	
 	
-	public Сatalog() {
+	public Catalog() {
 		super();
 	}
-	public Сatalog(Long id, String description) {
+	public Catalog(Long id, String description) {
 		super();
 		this.id = id;
 		this.description = description;

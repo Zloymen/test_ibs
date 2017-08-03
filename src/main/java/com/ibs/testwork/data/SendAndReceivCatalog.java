@@ -1,7 +1,7 @@
 package com.ibs.testwork.data;
 
 
-public class SendAndReceivCatalog extends Сatalog {
+public class SendAndReceivCatalog extends Catalog {
 
 	public SendAndReceivCatalog() {
 		super();
